@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoodFlow - AI 情绪日记</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(180deg, #FFFBF7 0%, #FFF5F0 100%);
+      min-height: 100vh;
+      color: #1d1d1f;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #FF7B6B 0%, #FF9A8B 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #FF7B6B 0%, #E85A4F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 24px;
+      color: #86868b;
+      font-weight: 400;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* Screenshots Gallery */
+    .gallery {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 80px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: auto;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: translateY(-10px) scale(1.02);
+    }
+
+    /* Features Section */
+    .features {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 48px;
+      letter-spacing: -0.02em;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: #86868b;
+      font-size: 15px;
+    }
+
+    /* Tech Stack */
+    .tech-stack {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .tech-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .tech-badge {
+      background: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #1d1d1f;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Pricing Section */
+    .pricing {
+      padding: 80px 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .pricing-card.featured {
+      background: linear-gradient(135deg, #FF7B6B 0%, #FF9A8B 100%);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-8px);
+    }
+
+    .pricing-card.featured .pricing-features li {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .pricing-label {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+      color: #86868b;
+    }
+
+    .pricing-card.featured .pricing-label {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .pricing-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .pricing-price span {
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .pricing-desc {
+      font-size: 15px;
+      color: #86868b;
+      margin-bottom: 24px;
+    }
+
+    .pricing-card.featured .pricing-desc {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .pricing-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .pricing-features li {
+      padding: 8px 0;
+      font-size: 15px;
+      color: #1d1d1f;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-features li::before {
+      content: "✓";
+      color: #34C759;
+      font-weight: 700;
+    }
+
+    .pricing-card.featured .pricing-features li::before {
+      color: white;
+    }
+
+    .pricing-btn {
+      display: inline-block;
+      width: 100%;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .pricing-btn-primary {
+      background: #1d1d1f;
+      color: white;
+    }
+
+    .pricing-btn-primary:hover {
+      background: #333;
+    }
+
+    .pricing-card.featured .pricing-btn {
+      background: white;
+      color: #FF7B6B;
+    }
+
+    .pricing-card.featured .pricing-btn:hover {
+      background: #f5f5f5;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 60px 20px;
+      color: #86868b;
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: #FF7B6B;
+      text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .hero-subtitle {
+        font-size: 18px;
+      }
+
+      .section-title {
+        font-size: 32px;
+      }
+
+      .gallery img {
+        width: 140px;
+      }
+
+      .pricing-card.featured {
+        transform: scale(1);
+      }
+
+      .pricing-card.featured:hover {
+        transform: translateY(-8px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <span class="hero-badge">Flutter 跨平台 · 源码出售</span>
+      <h1>MoodFlow</h1>
+      <p class="hero-subtitle">一款治愈系 AI 情绪日记 App，Apple Design 风格，支持深色模式与中英双语</p>
+    </section>
+
+    <!-- Screenshots -->
+    <section class="gallery">
+      <img src="screenshots/home_light.png" alt="首页 - 浅色模式">
+      <img src="screenshots/home_dark.png" alt="首页 - 深色模式">
+      <img src="screenshots/calendar.png" alt="日历页">
+      <img src="screenshots/stats.png" alt="统计页">
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <h2 class="section-title">功能亮点</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>Apple Design 风格</h3>
+          <p>珊瑚暖色系主题，大量留白，精致动效</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌙</div>
+          <h3>深色模式</h3>
+          <p>全局适配，可手动切换或跟随系统</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3>中英双语</h3>
+          <p>完整 i18n 支持，一键切换语言</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>数据可视化</h3>
+          <p>情绪趋势折线图 + 分布环形图</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3>情绪日历</h3>
+          <p>渐变色标记每日心情，一目了然</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>隐私优先</h3>
+          <p>Hive 本地存储，数据不上云</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="tech-stack">
+      <h2 class="section-title">技术栈</h2>
+      <div class="tech-badges">
+        <span class="tech-badge">Flutter 3.x</span>
+        <span class="tech-badge">Riverpod</span>
+        <span class="tech-badge">Hive</span>
+        <span class="tech-badge">fl_chart</span>
+        <span class="tech-badge">go_router</span>
+        <span class="tech-badge">SharedPreferences</span>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing">
+      <h2 class="section-title">购买方案</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-label">基础版</div>
+          <div class="pricing-title">源码买断</div>
+          <div class="pricing-price">¥3,888</div>
+          <p class="pricing-desc">一次性购买，永久使用</p>
+          <ul class="pricing-features">
+            <li>完整 Flutter 源码</li>
+            <li>iOS + Android 双平台</li>
+            <li>基础文档说明</li>
+            <li>自行二次开发</li>
+          </ul>
+          <button class="pricing-btn pricing-btn-primary">立即购买</button>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="pricing-label">推荐</div>
+          <div class="pricing-title">定制服务</div>
+          <div class="pricing-price">¥5,888</div>
+          <p class="pricing-desc">源码 + 品牌定制</p>
+          <ul class="pricing-features">
+            <li>包含基础版全部内容</li>
+            <li>更换 Logo 与品牌名</li>
+            <li>调整主题配色</li>
+            <li>修改 APP 名称与图标</li>
+            <li>7 天售后支持</li>
+          </ul>
+          <button class="pricing-btn">立即咨询</button>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-label">企业版</div>
+          <div class="pricing-title">全套服务</div>
+          <div class="pricing-price">¥12,888</div>
+          <p class="pricing-desc">定制 + 上架 + 维护</p>
+          <ul class="pricing-features">
+            <li>包含定制版全部内容</li>
+            <li>功能增减调整</li>
+            <li>App Store / 应用商店上架协助</li>
+            <li>30 天售后支持</li>
+            <li>后续维护另议</li>
+          </ul>
+          <button class="pricing-btn pricing-btn-primary">联系我们</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>MoodFlow © 2026 · Made with ❤️</p>
+      <p style="margin-top: 8px;">联系方式：<a href="mailto:qiuzhi814@gmail.com">qiuzhi814@gmail.com</a></p>
+    </footer>
+  </div>
+</body>
+
+</html>
